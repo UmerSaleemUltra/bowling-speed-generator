@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Converter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #515151;
+            background: transparent;
+        }
+
+        .input:focus {
+            outline: none;
+        }
+
+        label {
+            color: #999;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .input:focus ~ label, .input:valid ~ label {
+            top: -20px;
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        .bar {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        .bar:before, .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .bar:before {
+            left: 50%;
+        }
+
+        .bar:after {
+            right: 50%;
+        }
+
+        .input:focus ~ .bar:before, .input:focus ~ .bar:after {
+            width: 50%;
+        }
+
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .input:focus ~ .highlight {
+            animation: inputHighlighter 0.3s ease;
+        }
+
+        @keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        .shadow__btn {
+            padding: 10px 20px;
+            border: none;
+            font-size: 17px;
+            color: #fff;
+            border-radius: 7px;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.5s;
+            transition-property: box-shadow;
+            background: rgb(0,140,255);
+            box-shadow: 0 0 25px rgb(0,140,255);
+            cursor: pointer;
+        }
+
+        .shadow__btn:hover {
+            box-shadow: 0 0 5px rgb(0,140,255),
+                        0 0 25px rgb(0,140,255),
+                        0 0 50px rgb(0,140,255),
+                        0 0 100px rgb(0,140,255);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Speed Converter</h1>
+        <div class="group">
+            <input id="mphInput" type="number" required class="input">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label for="mphInput">Enter speed in mph:</label>
+        </div>
+        <button class="shadow__btn uiverse" onclick="convertSpeed()">Convert to km/h</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function speedConverter(valNum) {
+            return valNum * 1.609344;
+        }
+
+        function convertSpeed() {
+            const mphValue = document.getElementById('mphInput').value;
+            const kmhValue = speedConverter(mphValue);
+            document.getElementById('result').innerText = `Speed in km/h: ${kmhValue.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
